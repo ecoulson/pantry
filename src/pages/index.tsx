@@ -2,13 +2,23 @@ import type { NextPage } from 'next';
 import { LocalStorageBroker } from '../broker/local-storage-broker';
 import { PantryInput } from '../components/pantry-input';
 import { PantryItemFormData } from '../components/pantry-item-form-data';
-import { PantryService } from '../service/pantry-service';
+import { PantryItemType } from '../components/pantry-item-type';
+import { ProduceFormData } from '../components/produce-form-data';
+import { ProduceService } from '../service/produce-service';
 
 const Home: NextPage = () => {
-    const service = new PantryService(new LocalStorageBroker());
+    const service = new ProduceService(
+        new LocalStorageBroker<PantryItemFormData>('pantry_items')
+    );
 
     function addPantryItem(formData: PantryItemFormData) {
-        service.create(formData);
+        switch (formData.type) {
+            case PantryItemType.Produce:
+                service.createProduceFromFormData(formData as ProduceFormData);
+                break;
+            default:
+                break;
+        }
     }
 
     return (

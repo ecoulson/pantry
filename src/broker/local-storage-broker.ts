@@ -1,15 +1,23 @@
-import { PantryItemFormData } from '../components/pantry-item-form-data';
 import { BrowserStorageBroker } from './browser-storage-broker';
 
-export class LocalStorageBroker
-    implements BrowserStorageBroker<PantryItemFormData>
-{
-    setItem(key: string, object: PantryItemFormData): void {
-        window.localStorage.setItem(key, JSON.stringify(object));
+export class LocalStorageBroker<T> implements BrowserStorageBroker<T> {
+    constructor(private readonly collectionName: string) {}
+
+    setItem(key: string, object: T): void {
+        window.localStorage.setItem(
+            this.calculateConanicalKey(key),
+            JSON.stringify(object)
+        );
     }
 
-    getItem(key: string): PantryItemFormData {
-        const item = window.localStorage.getItem(key);
+    private calculateConanicalKey(key: string) {
+        return `${this.collectionName}/${key}`;
+    }
+
+    getItem(key: string): T {
+        const item = window.localStorage.getItem(
+            this.calculateConanicalKey(key)
+        );
         if (item === null || item === undefined) {
             throw new Error(`Failed to find the stored object with key ${key}`);
         }
@@ -17,7 +25,9 @@ export class LocalStorageBroker
     }
 
     deleteItem(key: string): boolean {
-        const item = window.localStorage.getItem(key);
+        const item = window.localStorage.getItem(
+            this.calculateConanicalKey(key)
+        );
         if (item === null || item === undefined) {
             return false;
         }

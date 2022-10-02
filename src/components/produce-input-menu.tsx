@@ -11,7 +11,7 @@ export function ProduceInputMenu({ name, onChange }: ProduceInputMenuProps) {
         onChange({
             quantity: formData.quantity ? parseInt(formData.quantity) : 0,
             weight: formData.weight ? parseFloat(formData.weight) : 0,
-            type: PantryItemType.Pantry,
+            type: PantryItemType.Produce,
             name: name,
             dateOfPurchase: formData.dateOfPurchase ?? '',
         });
