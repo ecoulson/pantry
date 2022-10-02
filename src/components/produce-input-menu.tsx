@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FormData } from './form-data';
 import { Input } from './input';
+import { PantryItemType } from './pantry-item-type';
 import { ProduceFormData } from './produce-form-data';
 import { ProduceInputMenuProps } from './produce-input-menu-props';
 
@@ -10,6 +11,7 @@ export function ProduceInputMenu({ name, onChange }: ProduceInputMenuProps) {
         onChange({
             quantity: formData.quantity ? parseInt(formData.quantity) : 0,
             weight: formData.weight ? parseFloat(formData.weight) : 0,
+            type: PantryItemType.Pantry,
             name: name,
             dateOfPurchase: formData.dateOfPurchase ?? '',
         });
