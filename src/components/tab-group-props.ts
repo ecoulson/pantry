@@ -1,3 +1,5 @@
 export interface TabGroupProps {
-    tabs: string[]
+    activeTab: string;
+    tabs: string[];
+    onTabSelection: (tab: string) => void;
 }

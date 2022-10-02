@@ -1,6 +1,6 @@
-import type { NextPage } from 'next'
-import { PantryInput } from '../components/pantry-input'
-import { PantryInputMenu } from '../components/pantry-input-menu'
+import type { NextPage } from 'next';
+import { PantryInput } from '../components/pantry-input';
+import { PantryInputMenu } from '../components/pantry-input-menu';
 
 const Home: NextPage = () => {
     return (
@@ -10,7 +10,7 @@ const Home: NextPage = () => {
                 <PantryInputMenu />
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

@@ -1,5 +1,6 @@
 export interface InputProps {
-    name: string
-    label: string
-    placeholder?: string
+    name: string;
+    label: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
 }

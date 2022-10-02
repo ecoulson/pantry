@@ -1,5 +1,5 @@
-import React from 'react'
-import Button from './button'
+import React from 'react';
+import Button from './button';
 
 export const PantryInput = () => {
     return (
@@ -10,5 +10,5 @@ export const PantryInput = () => {
             ></input>
             <Button>Add</Button>
         </div>
-    )
-}
+    );
+};
