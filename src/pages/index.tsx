@@ -1,20 +1,22 @@
 import type { NextPage } from 'next';
 import { LocalStorageBroker } from '../broker/local-storage-broker';
 import { PantryInput } from '../components/pantry-input';
-import { PantryItemFormData } from '../components/pantry-item-form-data';
+import { InventoryItemFormData } from '../components/inventory-item-form-data';
 import { PantryItemType } from '../components/pantry-item-type';
 import { ProduceFormData } from '../components/produce-form-data';
 import { ProduceService } from '../service/produce-service';
 
 const Home: NextPage = () => {
-    const service = new ProduceService(
-        new LocalStorageBroker<PantryItemFormData>('pantry_items')
+    const produceService = new ProduceService(
+        new LocalStorageBroker<InventoryItemFormData>('pantry_items')
     );
 
-    function addPantryItem(formData: PantryItemFormData) {
+    function addPantryItem(formData: InventoryItemFormData) {
         switch (formData.type) {
             case PantryItemType.Produce:
-                service.createProduceFromFormData(formData as ProduceFormData);
+                produceService.createProduceFromFormData(
+                    formData as ProduceFormData
+                );
                 break;
             default:
                 break;

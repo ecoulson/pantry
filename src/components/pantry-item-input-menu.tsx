@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { FormData } from './form-data';
 import { Input } from './input';
+import { PantryItemFormData } from './pantry-item-form-data';
 import { InventoryItemInputMenuProps } from './inventory-item-input-menu-props';
 import { PantryItemType } from './pantry-item-type';
-import { ProduceFormData } from './produce-form-data';
 
-export function ProduceInputMenu({
+export function PantryItemInputMenu({
     name,
     onChange,
 }: InventoryItemInputMenuProps) {
-    const [formData, setFormData] = useState<FormData<ProduceFormData>>({});
+    const [formData, setFormData] = useState<FormData<PantryItemFormData>>({});
     useEffect(() => {
         onChange({
-            quantity: formData.quantity ? parseInt(formData.quantity) : 0,
-            weight: formData.weight ? parseFloat(formData.weight) : 0,
-            type: PantryItemType.Produce,
+            type: PantryItemType.Pantry,
             name: name,
-            dateOfPurchase: formData.dateOfPurchase ?? '',
-        } as ProduceFormData);
+        });
     }, [name, formData]);
 
-    function updateFormData(key: keyof ProduceFormData, value: string) {
+    function updateFormData(key: keyof PantryItemFormData, value: string) {
         let newFormData = { ...formData };
         newFormData[key] = value;
         setFormData(newFormData);

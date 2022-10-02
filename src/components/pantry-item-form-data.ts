@@ -1,6 +1,7 @@
-import { PantryItemType } from './pantry-item-type';
-
 export interface PantryItemFormData {
-    name: string;
-    type: PantryItemType;
+    quantity: number;
+    weight: string;
+    volume: string;
+    dateOfPurchase: string;
+    dateOfExpiration: string;
 }

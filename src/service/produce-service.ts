@@ -1,11 +1,11 @@
 import { BrowserStorageBroker } from '../broker/browser-storage-broker';
-import { PantryItemFormData } from '../components/pantry-item-form-data';
+import { InventoryItemFormData } from '../components/inventory-item-form-data';
 import { ProduceFormData } from '../components/produce-form-data';
 import { Produce } from '../models/produce';
 
 export class ProduceService {
     constructor(
-        private readonly storage: BrowserStorageBroker<PantryItemFormData>
+        private readonly storage: BrowserStorageBroker<InventoryItemFormData>
     ) {}
 
     createProduceFromFormData(formData: ProduceFormData) {

@@ -1,6 +1,6 @@
-import { PantryItemFormData } from './pantry-item-form-data';
+import { InventoryItemFormData } from './inventory-item-form-data';
 
-export interface ProduceFormData extends PantryItemFormData {
+export interface ProduceFormData extends InventoryItemFormData {
     quantity: number;
     weight: number;
     dateOfPurchase: string;
