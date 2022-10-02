@@ -9,7 +9,7 @@ export function PantryInput() {
         if (input.trim().length === 0) {
             return null;
         }
-        return <PantryInputMenu />;
+        return <PantryInputMenu name={input} />;
     }
 
     return (
