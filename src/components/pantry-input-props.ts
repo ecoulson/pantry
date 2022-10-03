@@ -1,4 +1,4 @@
-import { InventoryItemFormData } from './inventory-item-form-data';
+import { InventoryItemFormData } from '../forms/inventory-item-form-data';
 
 export interface PantryInputProps {
     onPantryItemAdded: (data: InventoryItemFormData) => void;

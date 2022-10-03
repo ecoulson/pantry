@@ -2,24 +2,28 @@ import React, { useState } from 'react';
 import { PantryInputBar } from './pantry-input-bar';
 import { PantryInputMenu } from './pantry-input-menu';
 import { PantryInputProps } from './pantry-input-props';
-import { InventoryItemFormData } from './inventory-item-form-data';
+import { InventoryItemFormData } from '../forms/inventory-item-form-data';
 
 export function PantryInput({ onPantryItemAdded }: PantryInputProps) {
-    const [input, setInput] = useState('');
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
     const [formData, setFormData] = useState<InventoryItemFormData | null>(
         null
     );
 
     function renderInputMenu() {
-        if (input.trim().length === 0) {
+        if (name.trim().length === 0 || price.trim().length === 0) {
             return null;
         }
-        return <PantryInputMenu name={input} onChange={setFormData} />;
+        return (
+            <PantryInputMenu price={price} name={name} onChange={setFormData} />
+        );
     }
 
     function addPantryItem() {
         if (formData) {
-            setInput('');
+            setName('');
+            setPrice('');
             onPantryItemAdded(formData);
         }
     }
@@ -27,9 +31,11 @@ export function PantryInput({ onPantryItemAdded }: PantryInputProps) {
     return (
         <>
             <PantryInputBar
-                value={input}
+                name={name}
+                price={price}
                 onAddItem={addPantryItem}
-                onChange={setInput}
+                onNameChange={setName}
+                onPriceChange={setPrice}
             />
             {renderInputMenu()}
         </>

@@ -1,21 +1,36 @@
 import type { NextPage } from 'next';
 import { LocalStorageBroker } from '../broker/local-storage-broker';
 import { PantryInput } from '../components/pantry-input';
-import { InventoryItemFormData } from '../components/inventory-item-form-data';
-import { PantryItemType } from '../components/pantry-item-type';
-import { ProduceFormData } from '../components/produce-form-data';
+import { InventoryItemFormData } from '../forms/inventory-item-form-data';
+import { PantryItemType } from '../models/pantry-item-type';
+import { ProduceFormData } from '../forms/produce-form-data';
 import { ProduceService } from '../service/produce-service';
+import { PantryItemService } from '../service/pantry-item-service';
+import { PantryItemFormData } from '../forms/pantry-item-form-data';
+import { EquipmentService } from '../service/equipment-service';
+import { EquipmentFormData } from '../forms/equipment-form-data';
 
 const Home: NextPage = () => {
-    const produceService = new ProduceService(
-        new LocalStorageBroker<InventoryItemFormData>('pantry_items')
+    const storageBroker = new LocalStorageBroker<InventoryItemFormData>(
+        'pantry_items'
     );
+    const produceService = new ProduceService(storageBroker);
+    const pantryItemService = new PantryItemService(storageBroker);
+    const equipmentService = new EquipmentService(storageBroker);
 
     function addPantryItem(formData: InventoryItemFormData) {
         switch (formData.type) {
             case PantryItemType.Produce:
-                produceService.createProduceFromFormData(
-                    formData as ProduceFormData
+                produceService.createFromFormData(formData as ProduceFormData);
+                break;
+            case PantryItemType.Pantry:
+                pantryItemService.createFromFormData(
+                    formData as PantryItemFormData
+                );
+                break;
+            case PantryItemType.Equipment:
+                equipmentService.createFromFormData(
+                    formData as EquipmentFormData
                 );
                 break;
             default:

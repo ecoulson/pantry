@@ -1,5 +1,7 @@
 export interface PantryInputBarProps {
     onAddItem: () => void;
-    onChange: (value: string) => void;
-    value: string;
+    onNameChange: (name: string) => void;
+    onPriceChange: (price: string) => void;
+    name: string;
+    price: string;
 }

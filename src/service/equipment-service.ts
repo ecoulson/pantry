@@ -1,22 +1,21 @@
 import { BrowserStorageBroker } from '../broker/browser-storage-broker';
+import { EquipmentFormData } from '../forms/equipment-form-data';
 import { InventoryItemFormData } from '../forms/inventory-item-form-data';
-import { ProduceFormData } from '../forms/produce-form-data';
-import { Produce } from '../models/produce';
+import { Equipment } from '../models/equipment';
 
-export class ProduceService {
+export class EquipmentService {
     constructor(
         private readonly storage: BrowserStorageBroker<InventoryItemFormData>
     ) {}
 
-    createFromFormData(formData: ProduceFormData) {
-        const produce = new Produce(
+    createFromFormData(formData: EquipmentFormData) {
+        const equipment = new Equipment(
             formData.name,
+            formData.brand,
             formData.price,
-            formData.weight,
-            formData.quantity,
             formData.dateOfPurchase
         );
-        this.storage.setItem(produce.id(), produce);
-        return produce;
+        this.storage.setItem(equipment.id(), equipment);
+        return equipment;
     }
 }

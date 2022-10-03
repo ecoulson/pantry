@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { InventoryItemInputMenuProps } from './inventory-item-input-menu-props';
 import { PantryItemInputMenu } from './pantry-item-input-menu';
-import { PantryItemType } from './pantry-item-type';
+import { PantryItemType } from '../models/pantry-item-type';
 import { ProduceInputMenu } from './produce-input-menu';
 import { TabGroup } from './tab-group';
+import { EquipmentInputMenu } from './equipment-input-menu';
 
 export function PantryInputMenu({
     name,
+    price,
     onChange,
 }: InventoryItemInputMenuProps) {
     const tabs = [
@@ -19,9 +21,29 @@ export function PantryInputMenu({
     function renderMenu() {
         switch (activeTab) {
             case PantryItemType.Produce:
-                return <ProduceInputMenu name={name} onChange={onChange} />;
+                return (
+                    <ProduceInputMenu
+                        price={price}
+                        name={name}
+                        onChange={onChange}
+                    />
+                );
             case PantryItemType.Pantry:
-                return <PantryItemInputMenu name={name} onChange={onChange} />;
+                return (
+                    <PantryItemInputMenu
+                        price={price}
+                        name={name}
+                        onChange={onChange}
+                    />
+                );
+            case PantryItemType.Equipment:
+                return (
+                    <EquipmentInputMenu
+                        price={price}
+                        name={name}
+                        onChange={onChange}
+                    />
+                );
             default:
                 return 'Unknown input type';
         }
