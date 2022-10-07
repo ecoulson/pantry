@@ -1,4 +1,4 @@
-import { KitchenItemFormData } from '../kitchen-items/forms/kitchen-item-form-data';
+import { KitchenItemFormData } from './kitchen-item-form-data';
 
 export interface PantryItemFormData extends KitchenItemFormData {
     quantity: number;
