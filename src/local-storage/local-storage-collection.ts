@@ -1,5 +1,5 @@
 import { EventEmitter } from '../events/event-emitter';
-import { Identifiable } from '../kitchen-items/models/identifiable';
+import { Identifiable } from '../core/interfaces/identifiable';
 import { LocalStorageCollectionUpdateEvent } from './local-storage-collection-update-event';
 
 export class LocalStorageCollection<T extends Identifiable> {
