@@ -4,6 +4,7 @@ import { PantryItemInputMenu } from './pantry-item-input-menu';
 import { EquipmentInputMenu } from './equipment-input-menu';
 import { TabGroup } from '../../core/components/tab-group';
 import { KitchenItemType } from '../models/kitchen-item-type';
+import { ProduceInputMenu } from './produce-input-menu';
 
 export function KitchenItemInputMenu({
     name,
@@ -21,7 +22,7 @@ export function KitchenItemInputMenu({
         switch (activeTab) {
             case KitchenItemType.Produce:
                 return (
-                    <KitchenItemInputMenu
+                    <ProduceInputMenu
                         price={price}
                         name={name}
                         onChange={onChange}
