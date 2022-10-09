@@ -1,18 +1,18 @@
+import { FormData } from '../../core/forms/form-data';
 import { ProduceStorageBroker } from '../broker/produce-storage-broker';
-import { ProduceFormData } from '../forms/produce-form-data';
 import { Produce } from '../models/produce';
 
 export class ProduceService {
     constructor(private readonly broker: ProduceStorageBroker) {}
 
-    createFromFormData(formData: ProduceFormData) {
+    createFromFormData(formData: FormData) {
         return this.broker.add(
             new Produce(
-                formData.name,
-                formData.price,
-                formData.weight,
-                formData.quantity,
-                formData.dateOfPurchase
+                formData.getField('name'),
+                formData.getField('price'),
+                parseFloat(formData.getField('weight')),
+                parseInt(formData.getField('quantity')),
+                formData.getField('dateOfPurchase')
             )
         );
     }

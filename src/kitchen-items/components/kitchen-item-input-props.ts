@@ -1,5 +1,5 @@
-import { KitchenItemFormData } from '../forms/kitchen-item-form-data';
+import { FormData } from '../../core/forms/form-data';
 
 export interface KitchenItemInputProps {
-    onPantryItemAdded: (data: KitchenItemFormData) => void;
+    onKitchenItemAdded: (data: FormData) => void;
 }

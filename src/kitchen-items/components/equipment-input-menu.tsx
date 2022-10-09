@@ -1,48 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { EquipmentFormData } from '../forms/equipment-form-data';
-import { FormData } from '../forms/form-data';
+import React from 'react';
 import { KitchenItemInputMenuProps } from './kitchen-item-input-menu-props';
 import { Input } from '../../core/components/input';
 import { KitchenItemType } from '../models/kitchen-item-type';
 import { Container } from '../../core/bases/container';
+import { useForm } from '../../core/hooks/use-form';
 
 export function EquipmentInputMenu({
     name,
     price,
     onChange,
 }: KitchenItemInputMenuProps) {
-    const [formData, setFormData] = useState<FormData<EquipmentFormData>>({});
-    useEffect(() => {
-        onChange({
+    const { formData, updateFormData } = useForm(
+        {
             type: KitchenItemType.Equipment,
             name: name,
-            brand: formData.brand ?? '',
+            brand: '',
             price: price,
-            dateOfPurchase: formData.dateOfPurchase ?? '',
-        } as EquipmentFormData);
-    }, [name, formData]);
-
-    function updateFormData(key: keyof EquipmentFormData, value: string) {
-        let newFormData = { ...formData };
-        newFormData[key] = value;
-        setFormData(newFormData);
-    }
+            dateOfPurchase: '',
+        },
+        onChange
+    );
 
     return (
         <Container>
             <Input
-                value={formData.brand ?? ''}
+                value={formData.getOrDefaultField('brand', '')}
                 name="brand"
-                onChange={(brand) => updateFormData('brand', brand)}
+                onChange={updateFormData('brand')}
                 label="Brand"
                 placeholder="Miele"
             />
             <Input
-                value={formData.dateOfPurchase ?? ''}
+                value={formData.getOrDefaultField('dateOfPurchase', '')}
                 name="dateOfPurchase"
-                onChange={(dateOfPurchase) =>
-                    updateFormData('dateOfPurchase', dateOfPurchase)
-                }
+                onChange={updateFormData('dateOfPurchase')}
                 label="Date Of Purchase (mm/dd/yyyy)"
                 placeholder="10/16/2000"
             />

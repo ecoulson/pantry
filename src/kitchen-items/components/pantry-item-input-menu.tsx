@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container } from '../../core/bases/container';
 import { Input } from '../../core/components/input';
-import { FormData } from '../forms/form-data';
-import { PantryItemFormData } from '../forms/pantry-item-form-data';
+import { useForm } from '../../core/hooks/use-form';
 import { KitchenItemType } from '../models/kitchen-item-type';
 import { KitchenItemInputMenuProps } from './kitchen-item-input-menu-props';
 
@@ -11,65 +10,54 @@ export function PantryItemInputMenu({
     price,
     onChange,
 }: KitchenItemInputMenuProps) {
-    const [formData, setFormData] = useState<FormData<PantryItemFormData>>({});
-
-    useEffect(() => {
-        onChange({
+    const { formData, updateFormData } = useForm(
+        {
             type: KitchenItemType.Pantry,
             price,
             name,
-            quantity: formData.quantity ?? 0,
-            volume: formData.volume ?? 0,
-            weight: formData.weight ?? 0,
-            dateOfExpiration: formData.dateOfExpiration ?? '',
-            dateOfPurchase: formData.dateOfPurchase ?? '',
-        } as PantryItemFormData);
-    }, [name, formData]);
-
-    function updateFormData(key: keyof PantryItemFormData, value: string) {
-        let newFormData = { ...formData };
-        newFormData[key] = value;
-        setFormData(newFormData);
-    }
+            quantity: '',
+            volume: '',
+            weight: '',
+            dateOfExpiration: '',
+            dateOfPurchase: '',
+        },
+        onChange
+    );
 
     return (
         <Container>
             <Input
-                value={formData.quantity ?? ''}
+                value={formData.getOrDefaultField('quantity', '')}
                 name="quantity"
-                onChange={(quantity) => updateFormData('quantity', quantity)}
+                onChange={updateFormData('quantity')}
                 placeholder="Enter quantity"
                 label="Quantity"
             />
             <Input
-                value={formData.weight ?? ''}
+                value={formData.getOrDefaultField('weight', '')}
                 name="weight"
-                onChange={(weight) => updateFormData('weight', weight)}
+                onChange={updateFormData('weight')}
                 placeholder="Enter weight in lbs"
                 label="Weight"
             />
             <Input
-                value={formData.volume ?? ''}
+                value={formData.getOrDefaultField('volume', '')}
                 name="volume"
-                onChange={(volume) => updateFormData('volume', volume)}
+                onChange={updateFormData('volume')}
                 placeholder="Enter volume in mL"
                 label="Volume"
             />
             <Input
-                value={formData.dateOfPurchase ?? ''}
+                value={formData.getOrDefaultField('dateOfPurchase', '')}
                 name="dateOfPurchase"
-                onChange={(dateOfPurchase) =>
-                    updateFormData('dateOfPurchase', dateOfPurchase)
-                }
+                onChange={updateFormData('dateOfPurchase')}
                 label="Date Of Purchase (mm/dd/yyyy)"
                 placeholder="10/16/2000"
             />
             <Input
-                value={formData.dateOfExpiration ?? ''}
+                value={formData.getOrDefaultField('dateOfExpiration', '')}
                 name="dateOfExpiration"
-                onChange={(dateOfExpiration) =>
-                    updateFormData('dateOfExpiration', dateOfExpiration)
-                }
+                onChange={updateFormData('dateOfExpiration')}
                 label="Date Of Expiration (mm/dd/yyyy)"
                 placeholder="10/16/2000"
             />

@@ -1,12 +1,8 @@
 import type { NextPage } from 'next';
 import { LocalStorage } from '../local-storage/local-storage';
-import { KitchenItemFormData } from '../kitchen-items/forms/kitchen-item-form-data';
-import { ProduceFormData } from '../kitchen-items/forms/produce-form-data';
 import { ProduceService } from '../kitchen-items/service/produce-service';
 import { PantryItemService } from '../kitchen-items/service/pantry-item-service';
-import { PantryItemFormData } from '../kitchen-items/forms/pantry-item-form-data';
 import { EquipmentService } from '../kitchen-items/service/equipment-service';
-import { EquipmentFormData } from '../kitchen-items/forms/equipment-form-data';
 import { useEffect, useState } from 'react';
 import { LocalStorageBroker } from '../kitchen-items/broker/local-storage-broker';
 import { PantryItem } from '../kitchen-items/models/pantry-item';
@@ -18,6 +14,7 @@ import { EquipmentDisplay } from '../kitchen-items/components/equipment-display'
 import { PantryItemDisplay } from '../kitchen-items/components/pantry-item-display';
 import { KitchenItemType } from '../kitchen-items/models/kitchen-item-type';
 import { KitchenItemInput } from '../kitchen-items/components/kitchen-item-input';
+import { FormData } from '../core/forms/form-data';
 
 const Home: NextPage = () => {
     const [equipment, setEquipment] = useState<Equipment[]>([]);
@@ -82,38 +79,30 @@ const Home: NextPage = () => {
         }
     }, [pantryItemService]);
 
-    function addPantryItem(formData: KitchenItemFormData) {
-        switch (formData.type) {
+    function addPantryItem(formData: FormData) {
+        switch (formData.getField('type')) {
             case KitchenItemType.Produce:
                 setProduce([
                     ...produce,
-                    produceService!.createFromFormData(
-                        formData as ProduceFormData
-                    ),
+                    produceService!.createFromFormData(formData),
                 ]);
                 break;
             case KitchenItemType.Pantry:
                 setPantryItems([
                     ...pantryItems,
-                    pantryItemService!.createFromFormData(
-                        formData as PantryItemFormData
-                    ),
+                    pantryItemService!.createFromFormData(formData),
                 ]);
                 break;
             case KitchenItemType.Equipment:
             default:
-                setEquipment([
-                    equipmentService!.createFromFormData(
-                        formData as EquipmentFormData
-                    ),
-                ]);
+                setEquipment([equipmentService!.createFromFormData(formData)]);
                 break;
         }
     }
 
     return (
         <div className="grid gap-4 grid-cols-4 p-2">
-            <KitchenItemInput onPantryItemAdded={addPantryItem} />
+            <KitchenItemInput onKitchenItemAdded={addPantryItem} />
             <KitchenItemTypeDisplay displayName="Produce">
                 {produce.map((produce) => (
                     <ProduceDisplay produce={produce} />

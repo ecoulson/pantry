@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container } from '../../core/bases/container';
 import { Input } from '../../core/components/input';
-import { FormData } from '../forms/form-data';
-import { ProduceFormData } from '../forms/produce-form-data';
+import { useForm } from '../../core/hooks/use-form';
 import { KitchenItemType } from '../models/kitchen-item-type';
 import { KitchenItemInputMenuProps } from './kitchen-item-input-menu-props';
 
@@ -11,46 +10,38 @@ export function ProduceInputMenu({
     price,
     onChange,
 }: KitchenItemInputMenuProps) {
-    const [formData, setFormData] = useState<FormData<ProduceFormData>>({});
-    useEffect(() => {
-        onChange({
-            quantity: formData.quantity ? parseInt(formData.quantity) : 0,
-            weight: formData.weight ? parseFloat(formData.weight) : 0,
+    const { formData, updateFormData } = useForm(
+        {
+            quantity: '',
+            weight: '',
             type: KitchenItemType.Produce,
             name,
             price,
-            dateOfPurchase: formData.dateOfPurchase ?? '',
-        } as ProduceFormData);
-    }, [name, price, formData]);
-
-    function updateFormData(key: keyof ProduceFormData, value: string) {
-        let newFormData = { ...formData };
-        newFormData[key] = value;
-        setFormData(newFormData);
-    }
+            dateOfPurchase: '',
+        },
+        onChange
+    );
 
     return (
         <Container>
             <Input
-                value={formData.quantity ?? ''}
+                value={formData.getOrDefaultField('quantity', '')}
                 name="quantity"
-                onChange={(quantity) => updateFormData('quantity', quantity)}
+                onChange={updateFormData('quantity')}
                 placeholder="Enter quantity"
                 label="Quantity"
             />
             <Input
-                value={formData.weight ?? ''}
+                value={formData.getOrDefaultField('weight', '')}
                 name="weight"
-                onChange={(weight) => updateFormData('weight', weight)}
+                onChange={updateFormData('weight')}
                 placeholder="Enter weight in lbs"
                 label="Weight"
             />
             <Input
-                value={formData.dateOfPurchase ?? ''}
+                value={formData.getOrDefaultField('dateOfPurchase', '')}
                 name="dateOfPurchase"
-                onChange={(dateOfPurchase) =>
-                    updateFormData('dateOfPurchase', dateOfPurchase)
-                }
+                onChange={updateFormData('dateOfPurchase')}
                 label="Date Of Purchase (mm/dd/yyyy)"
                 placeholder="10/16/2000"
             />

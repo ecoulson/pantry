@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { KitchenItemFormData } from '../forms/kitchen-item-form-data';
+import { FormData } from '../../core/forms/form-data';
 import { KitchenItemInputBar } from './kitchen-item-input-bar';
 import { KitchenItemInputMenu } from './kitchen-item-input-menu';
 import { KitchenItemInputProps } from './kitchen-item-input-props';
 
-export function KitchenItemInput({ onPantryItemAdded }: KitchenItemInputProps) {
+export function KitchenItemInput({
+    onKitchenItemAdded,
+}: KitchenItemInputProps) {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [formData, setFormData] = useState<KitchenItemFormData | null>(null);
+    const [formData, setFormData] = useState(FormData.empty());
 
     function renderInputMenu() {
         if (name.trim().length === 0 && price.trim().length === 0) {
@@ -23,11 +25,11 @@ export function KitchenItemInput({ onPantryItemAdded }: KitchenItemInputProps) {
     }
 
     function addKitchenItem() {
-        if (formData) {
-            setName('');
-            setPrice('');
-            onPantryItemAdded(formData);
-        }
+        formData.setField('name', name);
+        formData.setField('price', price);
+        setPrice('');
+        setName('');
+        onKitchenItemAdded(formData);
     }
 
     return (
