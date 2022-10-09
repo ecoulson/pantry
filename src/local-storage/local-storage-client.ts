@@ -3,7 +3,7 @@ import { EventEmitter } from '../events/event-emitter';
 import { Identifiable } from '../core/interfaces/identifiable';
 import { LocalStorageCollection } from './local-storage-collection';
 
-export class LocalStorage {
+export class LocalStorageClient {
     private static readonly ApplicationId = 'pantry';
     private static readonly EmptyCollection = '{}';
 
@@ -14,7 +14,7 @@ export class LocalStorage {
     }
 
     public static create() {
-        return new LocalStorage(LocalStorage.ApplicationId);
+        return new LocalStorageClient(LocalStorageClient.ApplicationId);
     }
 
     private saveCollection(collection: LocalStorageCollection<any>) {
@@ -35,7 +35,7 @@ export class LocalStorage {
         }
         window.localStorage.setItem(
             this.calculateGlobalKey(collectionName),
-            LocalStorage.EmptyCollection
+            LocalStorageClient.EmptyCollection
         );
     }
 

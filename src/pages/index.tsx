@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { LocalStorage } from '../local-storage/local-storage';
+import { LocalStorageClient } from '../local-storage/local-storage-client';
 import { ProduceService } from '../kitchen-items/service/produce-service';
 import { PantryItemService } from '../kitchen-items/service/pantry-item-service';
 import { EquipmentService } from '../kitchen-items/service/equipment-service';
@@ -29,31 +29,35 @@ const Home: NextPage = () => {
         useState<EquipmentService | null>(null);
 
     useEffect(() => {
-        const localStorage = LocalStorage.create();
-        if (!localStorage.hasCollection('produce')) {
-            localStorage.createCollection('produce');
+        const localStorageClient = LocalStorageClient.create();
+        if (!localStorageClient.hasCollection('produce')) {
+            localStorageClient.createCollection('produce');
         }
-        if (!localStorage.hasCollection('pantry_items')) {
-            localStorage.createCollection('pantry_items');
+        if (!localStorageClient.hasCollection('pantry_items')) {
+            localStorageClient.createCollection('pantry_items');
         }
-        if (!localStorage.hasCollection('equipment')) {
-            localStorage.createCollection('equipment');
+        if (!localStorageClient.hasCollection('equipment')) {
+            localStorageClient.createCollection('equipment');
         }
         setProduceService(
             new ProduceService(
-                new LocalStorageBroker(localStorage.getCollection('produce'))
+                new LocalStorageBroker(
+                    localStorageClient.getCollection('produce')
+                )
             )
         );
         setPantryItemService(
             new PantryItemService(
                 new LocalStorageBroker(
-                    localStorage.getCollection('pantry_items')
+                    localStorageClient.getCollection('pantry_items')
                 )
             )
         );
         setEquipmentService(
             new EquipmentService(
-                new LocalStorageBroker(localStorage.getCollection('equipment'))
+                new LocalStorageBroker(
+                    localStorageClient.getCollection('equipment')
+                )
             )
         );
     }, []);
