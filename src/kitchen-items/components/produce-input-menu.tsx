@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Container } from '../../core/bases/container';
 import { Input } from '../../core/components/input';
 import { FormData } from '../forms/form-data';
 import { ProduceFormData } from '../forms/produce-form-data';
@@ -29,7 +30,7 @@ export function ProduceInputMenu({
     }
 
     return (
-        <div>
+        <Container>
             <Input
                 value={formData.quantity ?? ''}
                 name="quantity"
@@ -53,6 +54,6 @@ export function ProduceInputMenu({
                 label="Date Of Purchase (mm/dd/yyyy)"
                 placeholder="10/16/2000"
             />
-        </div>
+        </Container>
     );
 }

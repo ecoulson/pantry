@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Container } from '../../core/bases/container';
 import { Input } from '../../core/components/input';
 import { FormData } from '../forms/form-data';
 import { PantryItemFormData } from '../forms/pantry-item-form-data';
@@ -32,7 +33,7 @@ export function PantryItemInputMenu({
     }
 
     return (
-        <div>
+        <Container>
             <Input
                 value={formData.quantity ?? ''}
                 name="quantity"
@@ -72,6 +73,6 @@ export function PantryItemInputMenu({
                 label="Date Of Expiration (mm/dd/yyyy)"
                 placeholder="10/16/2000"
             />
-        </div>
+        </Container>
     );
 }

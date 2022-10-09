@@ -18,6 +18,8 @@ export class ClassBuilder {
     }
 
     build(): string {
-        return this.classes.join(' ');
+        const className = this.classes.join(' ');
+        this.classes = [];
+        return className;
     }
 }

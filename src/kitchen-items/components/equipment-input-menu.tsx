@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { EquipmentFormData } from '../forms/equipment-form-data';
-import { PantryItemType } from '../models/kitchen-item-type';
 import { FormData } from '../forms/form-data';
 import { KitchenItemInputMenuProps } from './kitchen-item-input-menu-props';
 import { Input } from '../../core/components/input';
+import { KitchenItemType } from '../models/kitchen-item-type';
+import { Container } from '../../core/bases/container';
 
 export function EquipmentInputMenu({
     name,
@@ -13,7 +14,7 @@ export function EquipmentInputMenu({
     const [formData, setFormData] = useState<FormData<EquipmentFormData>>({});
     useEffect(() => {
         onChange({
-            type: PantryItemType.Equipment,
+            type: KitchenItemType.Equipment,
             name: name,
             brand: formData.brand ?? '',
             price: price,
@@ -28,7 +29,7 @@ export function EquipmentInputMenu({
     }
 
     return (
-        <div>
+        <Container>
             <Input
                 value={formData.brand ?? ''}
                 name="brand"
@@ -45,6 +46,6 @@ export function EquipmentInputMenu({
                 label="Date Of Purchase (mm/dd/yyyy)"
                 placeholder="10/16/2000"
             />
-        </div>
+        </Container>
     );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from '../../core/bases/text';
 import { Card } from '../../core/components/card';
 import { LabeledDataDisplay } from '../../core/components/labeled-data-display';
 import { KitchenItemSection } from '../bases/kitchen-item-section';
@@ -8,8 +9,8 @@ export function PantryItemDisplay({ pantryItem }: PantryItemDisplayProps) {
     return (
         <Card>
             <KitchenItemSection>
-                <h3 className="text-lg">{pantryItem.name}</h3>
-                <p className="text-lg">{pantryItem.price}</p>
+                <Text fontSize="text-lg">{pantryItem.name}</Text>
+                <Text fontSize="text-lg">{pantryItem.price}</Text>
             </KitchenItemSection>
             <KitchenItemSection>
                 <LabeledDataDisplay

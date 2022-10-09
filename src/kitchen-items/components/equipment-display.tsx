@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from '../../core/bases/text';
 import { Card } from '../../core/components/card';
 import { LabeledDataDisplay } from '../../core/components/labeled-data-display';
 import { KitchenItemSection } from '../bases/kitchen-item-section';
@@ -8,8 +9,8 @@ export function EquipmentDisplay({ equipment }: EquipmentDisplayProps) {
     return (
         <Card>
             <KitchenItemSection>
-                <h3 className="text-lg">{equipment.name}</h3>
-                <p className="text-lg">{equipment.price}</p>
+                <Text fontSize="text-lg">{equipment.name}</Text>
+                <Text fontSize="text-lg">{equipment.price}</Text>
             </KitchenItemSection>
             <KitchenItemSection>
                 <LabeledDataDisplay label="Brand" data={equipment.brand} />
