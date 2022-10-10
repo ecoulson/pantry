@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { LocalStorageClient } from '../frameworks/local-storage/local-storage-client';
+import { LocalStorageClient } from '../libraries/local-storage/local-storage-client';
 import { ProduceService } from '../kitchen-items/service/produce-service';
 import { PantryItemService } from '../kitchen-items/service/pantry-item-service';
 import { EquipmentService } from '../kitchen-items/service/equipment-service';

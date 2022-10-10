@@ -1,4 +1,4 @@
-import { EventHandlerRegistration } from '../../models/event-handler-registration';
+import { EventHandlerRegistration } from '../../models/event-handler-registrations/event-handler-registration';
 
 export interface EventHandlerRegistrationsStorageBroker<T> {
     insertEventHandlerRegistration(

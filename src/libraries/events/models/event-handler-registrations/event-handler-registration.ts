@@ -1,4 +1,4 @@
-import { Delegate } from '../../../core/interfaces/delegate';
+import { Delegate } from '../../../../core/interfaces/delegate';
 
 export class EventHandlerRegistration<T> {
     constructor(

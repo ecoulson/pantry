@@ -1,4 +1,4 @@
-import { EventHandlerRegistration } from '../../models/event-handler-registration';
+import { EventHandlerRegistration } from '../../models/event-handler-registrations/event-handler-registration';
 import { EventHandlerRegistrationsStorageBroker } from './event-handler-registrations-storage-broker';
 
 export class InMemoryEventHandlerRegistrationsStorageBroker<T>
