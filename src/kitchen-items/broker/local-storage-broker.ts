@@ -1,4 +1,4 @@
-import { LocalStorageCollection } from '../../local-storage/local-storage-collection';
+import { LocalStorageCollection } from '../../frameworks/local-storage/local-storage-collection';
 import { Identifiable } from '../../core/interfaces/identifiable';
 import { StorageBroker } from './storage-broker';
 

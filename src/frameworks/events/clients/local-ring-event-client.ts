@@ -1,4 +1,4 @@
-import { Delegate } from '../interfaces/delegate';
+import { Delegate } from '../../../core/interfaces/delegate';
 import { RingEventClient } from './ring-event-client';
 
 export class LocalRingEventClient<T> implements RingEventClient<T> {

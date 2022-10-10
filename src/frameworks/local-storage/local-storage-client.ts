@@ -1,6 +1,6 @@
-import { isNil } from '../core/conditions/is-nil';
+import { isNil } from '../../core/conditions/is-nil';
 import { EventEmitter } from '../events/event-emitter';
-import { Identifiable } from '../core/interfaces/identifiable';
+import { Identifiable } from '../../core/interfaces/identifiable';
 import { LocalStorageCollection } from './local-storage-collection';
 
 export class LocalStorageClient {
