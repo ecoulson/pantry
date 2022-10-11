@@ -5,14 +5,14 @@ import { EventHandlerRegistration } from '../../../models/event-handler-registra
 import { EventHandlerRegistrationValidationException } from '../../../models/event-handler-registrations/exceptions/event-handler-registration-validation-exception';
 import { IllegalEventHandlerRegistrationException } from '../../../models/event-handler-registrations/exceptions/illegal-event-handler-registration-exception';
 import { NullEventHandlerRegistrationException } from '../../../models/event-handler-registrations/exceptions/null-event-handler-registration-exception';
-import { EventHandlerRegistrationsService } from './event-handler-registrations-service';
+import { EventHandlerRegistrationService } from './event-handler-registration-service';
 import { EventHandlerRegistrationServiceException } from './exceptions/event-handler-registration-service-exception';
 import { FailedEventHandlerRegistrationServiceException } from './exceptions/failed-event-handler-registration-service-exception';
 
-describe('Event Handler Registrations Service Test Suite', () => {
+describe('Event Handler Registration Service Test Suite', () => {
     const mockedBroker = mock<EventHandlerRegistrationsStorageBroker<number>>();
     const broker = instance(mockedBroker);
-    const service = new EventHandlerRegistrationsService(broker);
+    const service = new EventHandlerRegistrationService(broker);
 
     beforeEach(() => {
         reset(mockedBroker);

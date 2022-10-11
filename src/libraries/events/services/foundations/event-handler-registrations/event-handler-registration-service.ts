@@ -12,7 +12,7 @@ import { EventHandlerRegistrationServiceException } from './exceptions/event-han
 import { FailedEventHandlerRegistrationServiceException } from './exceptions/failed-event-handler-registration-service-exception';
 import { ValidationStep } from '/Users/evancoulson/Code/pantry/src/libraries/validations/models/validation-step';
 
-export class EventHandlerRegistrationsService<T> {
+export class EventHandlerRegistrationService<T> {
     constructor(
         private readonly storageBroker: EventHandlerRegistrationsStorageBroker<T>
     ) {}
