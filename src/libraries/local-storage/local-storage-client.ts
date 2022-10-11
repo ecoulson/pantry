@@ -1,5 +1,5 @@
 import { isNil } from '../../core/conditions/is-nil';
-import { Identifiable } from '../../core/interfaces/identifiable';
+import { Identifiable } from './interfaces/identifiable';
 import { LocalRingEventClient } from '../events/clients/local-ring-event-client';
 import { RingEventClient } from '../events/clients/ring-event-client';
 import { LocalStorageCollection } from './local-storage-collection';

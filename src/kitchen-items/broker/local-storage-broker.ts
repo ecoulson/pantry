@@ -1,5 +1,5 @@
 import { LocalStorageCollection } from '../../libraries/local-storage/local-storage-collection';
-import { Identifiable } from '../../core/interfaces/identifiable';
+import { Identifiable } from '../../libraries/local-storage/interfaces/identifiable';
 import { StorageBroker } from './storage-broker';
 
 export class LocalStorageBroker<T extends Identifiable>

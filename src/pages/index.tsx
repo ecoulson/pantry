@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { LocalStorageClient } from '../libraries/local-storage/local-storage-client';
-import { ProduceService } from '../kitchen-items/service/produce-service';
-import { PantryItemService } from '../kitchen-items/service/pantry-item-service';
-import { EquipmentService } from '../kitchen-items/service/equipment-service';
+import { ProduceService } from '../kitchen-items/services/produce-service';
+import { PantryItemService } from '../kitchen-items/services/pantry-item-service';
+import { EquipmentService } from '../kitchen-items/services/equipment-service';
 import { useEffect, useState } from 'react';
 import { LocalStorageBroker } from '../kitchen-items/broker/local-storage-broker';
 import { PantryItem } from '../kitchen-items/models/pantry-item';
