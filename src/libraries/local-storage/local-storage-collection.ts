@@ -1,11 +1,13 @@
-import { EventEmitter } from '../events/event-emitter';
 import { Identifiable } from '../../core/interfaces/identifiable';
+import { LocalRingEventClient } from '../events/clients/local-ring-event-client';
+import { RingEventClient } from '../events/clients/ring-event-client';
 import { LocalStorageCollectionUpdateEvent } from './local-storage-collection-update-event';
 
 export class LocalStorageCollection<T extends Identifiable> {
     constructor(
         public readonly name: string,
-        private readonly collection: Map<string, T>
+        private readonly collection: Map<string, T>,
+        private readonly ringClient: RingEventClient<LocalStorageCollectionUpdateEvent>
     ) {}
 
     public static fromJSON<T extends Identifiable>(
@@ -14,7 +16,8 @@ export class LocalStorageCollection<T extends Identifiable> {
     ) {
         return new LocalStorageCollection<T>(
             name,
-            new Map(Object.entries(JSON.parse(serializedCollection)))
+            new Map(Object.entries(JSON.parse(serializedCollection))),
+            new LocalRingEventClient()
         );
     }
 
@@ -48,7 +51,9 @@ export class LocalStorageCollection<T extends Identifiable> {
             throw new Error(`Record with id ${record.id} already exists`);
         }
         this.collection.set(record.id, record);
-        EventEmitter.notify(new LocalStorageCollectionUpdateEvent(this));
+        this.ringClient.publishEvent(
+            new LocalStorageCollectionUpdateEvent(this)
+        );
         return record;
     }
 
@@ -57,7 +62,9 @@ export class LocalStorageCollection<T extends Identifiable> {
             throw new Error(`Record with id ${record.id} does not exist`);
         }
         this.collection.set(record.id, record);
-        EventEmitter.notify(new LocalStorageCollectionUpdateEvent(this));
+        this.ringClient.publishEvent(
+            new LocalStorageCollectionUpdateEvent(this)
+        );
         return record;
     }
 
@@ -66,7 +73,9 @@ export class LocalStorageCollection<T extends Identifiable> {
             throw new Error(`Record with id ${record.id} does not exist`);
         }
         this.collection.delete(record.id);
-        EventEmitter.notify(new LocalStorageCollectionUpdateEvent(this));
+        this.ringClient.publishEvent(
+            new LocalStorageCollectionUpdateEvent(this)
+        );
         return record;
     }
 }

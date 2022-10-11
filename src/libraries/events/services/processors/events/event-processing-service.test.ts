@@ -14,16 +14,16 @@ import { NullEventHandlerException } from '../../../models/event-handler/excepti
 import { NullEventException } from '../../../models/events/exceptions/null-event-exception';
 import { EventHandlerRegistrationService } from '../../foundations/event-handler-registrations/event-handler-registration-service';
 import { EventHandlerRegistrationServiceException } from '../../foundations/event-handler-registrations/exceptions/event-handler-registration-service-exception';
-import { EventsProcessingService } from './events-processing-service';
+import { EventProcessingService } from './event-processing-service';
 import { EventProcessingDependencyException } from './exceptions/event-processing-dependency-exception';
 import { EventProcessingDependencyValidationException } from './exceptions/event-processing-dependency-validation-exception';
 import { EventProcessingServiceException } from './exceptions/event-processing-service-exception';
 import { EventProcessingValidationException } from './exceptions/event-processing-validation-exception';
 import { FailedEventProcessingServiceException } from './exceptions/failed-event-processing-service-exception';
 
-describe('Events Processing Service Test Suite', () => {
+describe('Event Processing Service Test Suite', () => {
     const mockedFoundationService = mock(EventHandlerRegistrationService);
-    const service = new EventsProcessingService(
+    const service = new EventProcessingService(
         instance(mockedFoundationService)
     );
 

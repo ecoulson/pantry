@@ -15,7 +15,7 @@ import { EventProcessingDependencyValidationException } from './exceptions/event
 import { EventProcessingServiceException } from './exceptions/event-processing-service-exception';
 import { EventProcessingValidationException } from './exceptions/event-processing-validation-exception';
 
-export class EventsProcessingService<T extends Event> {
+export class EventProcessingService<T extends Event> {
     constructor(
         private readonly eventHandlerRegistrationService: EventHandlerRegistrationService<T>
     ) {}

@@ -1,20 +1,31 @@
 import { isNil } from '../../core/conditions/is-nil';
-import { EventEmitter } from '../events/event-emitter';
 import { Identifiable } from '../../core/interfaces/identifiable';
+import { LocalRingEventClient } from '../events/clients/local-ring-event-client';
+import { RingEventClient } from '../events/clients/ring-event-client';
 import { LocalStorageCollection } from './local-storage-collection';
+import { LocalStorageCollectionUpdateEvent } from './local-storage-collection-update-event';
 
 export class LocalStorageClient {
     private static readonly ApplicationId = 'pantry';
     private static readonly EmptyCollection = '{}';
 
-    constructor(private readonly applicationIdentifier: string) {
-        EventEmitter.listen('LocalStorageCollectionUpdateEvent', (event) =>
-            this.saveCollection(event.data)
+    constructor(
+        private readonly applicationIdentifier: string,
+        ringClient: RingEventClient<LocalStorageCollectionUpdateEvent>
+    ) {
+        ringClient.registerEventHandler(
+            'LocalStorageCollectionUpdateEvent',
+            async (event: LocalStorageCollectionUpdateEvent) => {
+                this.saveCollection(event.data);
+            }
         );
     }
 
     public static create() {
-        return new LocalStorageClient(LocalStorageClient.ApplicationId);
+        return new LocalStorageClient(
+            LocalStorageClient.ApplicationId,
+            new LocalRingEventClient()
+        );
     }
 
     private saveCollection(collection: LocalStorageCollection<any>) {

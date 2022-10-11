@@ -1,10 +1,11 @@
 import { Delegate } from '../../../core/interfaces/delegate';
+import { Event } from '../models/events/event';
 
-export interface RingEventClient<T> {
+export interface RingEventClient<T extends Event> {
     registerEventHandler(
-        eventHandler: Delegate<T, Promise<void>>,
-        eventName: string
+        eventName: string,
+        eventHandler: Delegate<T, Promise<void>>
     ): void;
 
-    publishEvent(event: T, eventName: string): Promise<void>;
+    publishEvent(event: T): Promise<void>;
 }
