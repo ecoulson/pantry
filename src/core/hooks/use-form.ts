@@ -11,7 +11,7 @@ export function useForm<T extends Record<string, string>>(
 
     useEffect(() => {
         onChange(formData);
-    }, [formData]);
+    }, [formData, onChange]);
 
     function updateFormData(key: string) {
         return (value: string) => {

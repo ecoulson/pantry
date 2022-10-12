@@ -66,13 +66,13 @@ const Home: NextPage = () => {
         if (equipmentService) {
             setEquipment([...equipment, ...equipmentService.getAllEquipment()]);
         }
-    }, [equipmentService]);
+    }, [equipmentService, equipment]);
 
     useEffect(() => {
         if (produceService) {
             setProduce([...produce, ...produceService.getAllProduce()]);
         }
-    }, [produceService]);
+    }, [produceService, produce]);
 
     useEffect(() => {
         if (pantryItemService) {
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
                 ...pantryItemService.getAllPantryItems(),
             ]);
         }
-    }, [pantryItemService]);
+    }, [pantryItemService, pantryItems]);
 
     function addPantryItem(formData: FormData) {
         switch (formData.getField('type')) {
@@ -109,17 +109,23 @@ const Home: NextPage = () => {
             <KitchenItemInput onKitchenItemAdded={addPantryItem} />
             <KitchenItemTypeDisplay displayName="Produce">
                 {produce.map((produce) => (
-                    <ProduceDisplay produce={produce} />
+                    <ProduceDisplay key={produce.id} produce={produce} />
                 ))}
             </KitchenItemTypeDisplay>
             <KitchenItemTypeDisplay displayName="Pantry Items">
                 {pantryItems.map((pantryItem) => (
-                    <PantryItemDisplay pantryItem={pantryItem} />
+                    <PantryItemDisplay
+                        key={pantryItem.id}
+                        pantryItem={pantryItem}
+                    />
                 ))}
             </KitchenItemTypeDisplay>
             <KitchenItemTypeDisplay displayName="Equipment">
                 {equipment.map((equipment) => (
-                    <EquipmentDisplay equipment={equipment} />
+                    <EquipmentDisplay
+                        key={equipment.id}
+                        equipment={equipment}
+                    />
                 ))}
             </KitchenItemTypeDisplay>
         </div>
