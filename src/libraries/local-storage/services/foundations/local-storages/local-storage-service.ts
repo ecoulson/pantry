@@ -26,12 +26,9 @@ export class LocalStorageService {
                 this.webStorageBroker.write(collectionKey, collection.data);
                 return collection;
             },
-            this.localStorageExceptionHandler((exception) => {
-                switch (exception.constructor) {
-                    default:
-                        return this.createDefaultException(exception);
-                }
-            })
+            this.localStorageExceptionHandler((exception) =>
+                this.createDefaultException(exception)
+            )
         );
     }
 
@@ -75,7 +72,23 @@ export class LocalStorageService {
 
     updateCollection(
         collection: LocalStorageCollection
-    ): LocalStorageCollection {}
+    ): LocalStorageCollection {
+        return tryCatch(
+            () => {
+                this.webStorageBroker.write(
+                    this.createCollectionKey(
+                        collection.applicationId,
+                        collection.name
+                    ),
+                    collection.data
+                );
+                return collection;
+            },
+            this.localStorageExceptionHandler((exception) => {
+                return this.createDefaultException(exception);
+            })
+        );
+    }
 
     getCollection(
         applicationId: string,
@@ -124,12 +137,9 @@ export class LocalStorageService {
                         collection.name
                     )
                 ),
-            this.localStorageExceptionHandler((exception) => {
-                switch (exception.constructor) {
-                    default:
-                        return this.createDefaultException(exception);
-                }
-            })
+            this.localStorageExceptionHandler((exception) =>
+                this.createDefaultException(exception)
+            )
         );
     }
 }

@@ -67,7 +67,7 @@ describe('Local Storage Service Test Suite', () => {
             ).once();
         });
 
-        test('Should throw a dependency exception when writing a security exception is thrown', () => {
+        test('Should throw a dependency validation exception when writing a security exception is thrown', () => {
             const collectionName = 'collection-name';
             const emptyCollection = '{}';
             const collection = new LocalStorageCollection(
@@ -189,7 +189,88 @@ describe('Local Storage Service Test Suite', () => {
         });
     });
 
-    describe('updateCollection', () => {});
+    describe('updateCollection', () => {
+        test('Should update a collection', () => {
+            const collectionName = 'collection-name';
+            const collectionData = JSON.stringify({
+                foo: 1,
+            });
+            const collection = new LocalStorageCollection(
+                applicationId,
+                collectionName,
+                collectionData
+            );
+            const expectedCollectionKey = `${applicationId}://${collectionName}`;
+            const expectedCollection = collection;
+
+            const actualCollection = service.updateCollection(collection);
+
+            expect(actualCollection).toEqual(expectedCollection);
+            verify(
+                mockedBroker.write(expectedCollectionKey, collectionData)
+            ).once();
+        });
+
+        test('Should throw a dependency validation exception when writing a security exception is thrown', () => {
+            const collectionName = 'collection-name';
+            const emptyCollection = '{}';
+            const collection = new LocalStorageCollection(
+                applicationId,
+                collectionName,
+                emptyCollection
+            );
+            const innerException = new Exception(
+                '',
+                new DOMException('', 'SecurityError')
+            );
+            const permissionsException = new LocalStoragePermissionsException(
+                innerException
+            );
+            const expectedException =
+                new LocalStorageDependencyValidationException(
+                    permissionsException
+                );
+            const expectedCollectionKey = `${applicationId}://${collectionName}`;
+            when(
+                mockedBroker.write(expectedCollectionKey, emptyCollection)
+            ).thenThrow(innerException);
+
+            const action = () => service.updateCollection(collection);
+            expect(action).toThrow(expectedException);
+
+            verify(
+                mockedBroker.write(expectedCollectionKey, emptyCollection)
+            ).once();
+        });
+
+        test('Should throw a service exception when an exception is thrown', () => {
+            const collectionName = 'collection-name';
+            const emptyCollection = '{}';
+            const collection = new LocalStorageCollection(
+                applicationId,
+                collectionName,
+                emptyCollection
+            );
+            const innerException = new Exception();
+            const permissionsException = new FailedLocalStorageServiceException(
+                innerException
+            );
+            const expectedException = new LocalStorageServiceException(
+                permissionsException
+            );
+            const expectedCollectionKey = `${applicationId}://${collectionName}`;
+            when(
+                mockedBroker.write(expectedCollectionKey, emptyCollection)
+            ).thenThrow(innerException);
+
+            const action = () => service.updateCollection(collection);
+            expect(action).toThrow(expectedException);
+
+            verify(
+                mockedBroker.write(expectedCollectionKey, emptyCollection)
+            ).once();
+        });
+    });
 
     describe('deleteCollection', () => {
         test('Should delete a collection', () => {
@@ -229,7 +310,7 @@ describe('Local Storage Service Test Suite', () => {
             verify(mockedBroker.delete(expectedKey)).once();
         });
 
-        test('Should throw a dependency exception when deleting the broker throws a security exception', () => {
+        test('Should throw a dependency validation exception when deleting the broker throws a security exception', () => {
             const collectionName = 'collection-name';
             const innerException = new Exception(
                 '',
