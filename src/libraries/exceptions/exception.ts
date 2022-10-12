@@ -4,7 +4,7 @@ import { ExceptionMessageBuilder } from './exception-message-builder';
 export class Exception extends Error {
     constructor(
         public readonly message: string = '',
-        public readonly innerException: Exception | null = null,
+        public readonly innerException: Error | null = null,
         public readonly data: ExceptionData = new Map()
     ) {
         super(message);

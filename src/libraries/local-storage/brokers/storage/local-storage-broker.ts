@@ -1,17 +1,21 @@
 import { WebStorageBroker } from './web-storage-broker';
 
 export class LocalStorageBroker implements WebStorageBroker {
-    constructor(private readonly localStorage: Storage) {}
+    constructor(private readonly storage: Storage) {}
+
+    keys() {
+        return Object.keys(this.storage);
+    }
 
     read(key: string): string | null {
-        return this.localStorage.getItem(key);
+        return this.storage.getItem(key);
     }
 
     write(key: string, data: string): void {
-        this.localStorage.setItem(key, data);
+        this.storage.setItem(key, data);
     }
 
     delete(key: string): void {
-        this.localStorage.removeItem(key);
+        this.storage.removeItem(key);
     }
 }
