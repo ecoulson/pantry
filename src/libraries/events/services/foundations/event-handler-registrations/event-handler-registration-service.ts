@@ -2,6 +2,7 @@ import { isNil } from '../../../../../core/conditions/is-nil';
 import { Delegate } from '../../../../../core/interfaces/delegate';
 import { Exception } from '../../../../exceptions/exception';
 import { tryCatch } from '../../../../exceptions/try-catch';
+import { ValidationStep } from '../../../../validations/models/validation-step';
 import { Validator } from '../../../../validations/validator';
 import { EventHandlerRegistrationsStorageBroker } from '../../../brokers/storages/event-handler-registrations-storage-broker';
 import { EventHandlerRegistration } from '../../../models/event-handler-registrations/event-handler-registration';
@@ -10,7 +11,6 @@ import { IllegalEventHandlerRegistrationException } from '../../../models/event-
 import { NullEventHandlerRegistrationException } from '../../../models/event-handler-registrations/exceptions/null-event-handler-registration-exception';
 import { EventHandlerRegistrationServiceException } from './exceptions/event-handler-registration-service-exception';
 import { FailedEventHandlerRegistrationServiceException } from './exceptions/failed-event-handler-registration-service-exception';
-import { ValidationStep } from '/Users/evancoulson/Code/pantry/src/libraries/validations/models/validation-step';
 
 export class EventHandlerRegistrationService<T> {
     constructor(
