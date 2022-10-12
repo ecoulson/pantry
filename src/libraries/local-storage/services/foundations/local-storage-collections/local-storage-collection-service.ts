@@ -6,13 +6,23 @@ export class LocalStorageCollectionService<T extends Identifiable> {
         private readonly collectionBroker: CollectionStorageBroker<T>
     ) {}
 
-    list(): T[] {}
+    list(): T[] {
+        throw new Error();
+    }
 
-    findById(id: string): T {}
+    findById(id: string): T {
+        throw new Error();
+    }
 
-    create(record: T): T {}
+    create(record: T): T {
+        throw new Error();
+    }
 
-    delete(record: T): T {}
+    delete(record: T): T {
+        throw new Error();
+    }
 
-    update(record: T): T {}
+    update(record: T): T {
+        throw new Error();
+    }
 }
